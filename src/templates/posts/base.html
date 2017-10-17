@@ -5,11 +5,17 @@
   <head>
     {% include 'html/head.html' %}
     <link rel="stylesheet" href="{% static 'posts/css/style.css' %}" type="text/css">
-    <title>Title here</title>
+    <title>{% block title%}Title here{% endblock %}</title>
   </head>
   <body>
-    {% block content %}
-    PostList content here
-    {% endblock %}
+
+    <div class='col-sm-6 col-sm-offset-3'>
+      <header>
+        <h1>{% block h1%}Header here{% endblock %}</h1>
+      </header>
+      {% block content %}
+      PostList content here
+      {% endblock %}
+    </div>
   </body>
 </html>

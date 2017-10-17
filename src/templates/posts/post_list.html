@@ -1,41 +1,44 @@
 {% extends 'posts/base.html' %}
 
+{% block title%}
+{{ site_title }}
+{% endblock %}
+
+{% block h1%}
+Latest Posts
+{% endblock %}
+
 {% block content %}
 
-<div class='col-sm-6 col-sm-offset-3'>
+{% include 'html/search.html' %}
 
-  <h1>Latest Posts</h1>
-
-  {% include 'html/search.html' %}
-
-  {% for post in object_list %}
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="thumbnail">
-        {% if post.image %}
-        <img src='{{ post.image.url }}' class='img-responsive' />
+{% for post in object_list %}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="thumbnail">
+      {% if post.image %}
+      <img src='{{ post.image.url }}' class='img-responsive' />
+      {% endif %}
+      <div class="caption post-detail-item">
+        {% if post.draft %}
+        <h3>Staff only: Draft</h3>
         {% endif %}
-        <div class="caption post-detail-item">
-          {% if post.draft %}
-          <h3>Staff only: Draft</h3>
-          {% endif %}
-          {% if post.publish > today %}
-          <h3>Staff Only: Future Post</h3>
-          {% endif %}
-          <h3><a href='{{ obj.get_absolute_url }}'>{{ post.title }}</a> <small>{{ post.publish }}</small></h3>
-          {% if post.user.get_full_name %}
-          <p>Author: {{ post.user.get_full_name }}</p>
-          {% endif %}
-          {{ post.get_markdown|truncatechars_html:120 }}
-          <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a></p>
-        </div>
+        {% if post.publish > today %}
+        <h3>Staff Only: Future Post</h3>
+        {% endif %}
+        <h3><a href='{{ obj.get_absolute_url }}'>{{ post.title }}</a> <small>{{ post.publish }}</small></h3>
+        {% if post.user.get_full_name %}
+        <p>Author: {{ post.user.get_full_name }}</p>
+        {% endif %}
+        {{ post.get_markdown|truncatechars_html:120 }}
+        <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a></p>
       </div>
     </div>
-    <hr/>
   </div>
-  {% empty %}
-  <span>No posts here!</span>
-  {% endfor %}
+  <hr/>
+{% empty %}
+<span>No posts here!</span>
+{% endfor %}
 
 </div>
 
