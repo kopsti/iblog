@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from .models import Category, Post, User
@@ -25,9 +26,16 @@ class PostList(ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
+        query = self.request.GET.get("q")
         queryset = Post.objects.active()
         if (self.request.user.is_staff or self.request.user.is_superuser):
             queryset = Post.objects.all()
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(author__username__icontains=query)
+            ).distinct()
         return queryset
 
 class PostDetail(DetailView):
@@ -74,10 +82,17 @@ class PostAuthorList(ListView):
 
     def get_queryset(self):
         author = get_object_or_404(User, username=self.kwargs['user'])
+        query = self.request.GET.get("q")
         queryset = Post.objects.active()
         if (self.request.user.is_staff or self.request.user.is_superuser):
             queryset = Post.objects.all()
         queryset = queryset.filter(author=author)
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(author__username__icontains=query)
+            ).distinct()
         return queryset
 
 class PostCategoryDetail(ListView):
@@ -86,8 +101,15 @@ class PostCategoryDetail(ListView):
 
     def get_queryset(self):
         category = get_object_or_404(Category, slug=self.kwargs['category'])
+        query = self.request.GET.get("q")
         queryset = Post.objects.active()
         if (self.request.user.is_staff or self.request.user.is_superuser):
             queryset = Post.objects.all()
         queryset = queryset.filter(category=category)
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(author__username__icontains=query)
+            ).distinct()
         return queryset
