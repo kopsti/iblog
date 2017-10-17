@@ -18,4 +18,4 @@ def current_site(request):
         }
     except:
         # always return a dict, no matter what!
-        return {'current_site':''} # an empty string    
+        return {'current_site':''} # an empty string

@@ -15,7 +15,7 @@ if os.environ.get('PROD'):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = False
 
-    ALLOWED_HOSTS = ['???.herokuapp.com']
+    ALLOWED_HOSTS = ['iblog3.herokuapp.com']
 
     # Application definition
 
@@ -25,6 +25,7 @@ if os.environ.get('PROD'):
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
+        'django.contrib.sites',
         'django.contrib.staticfiles',
         # external
         'storages',
@@ -118,7 +119,7 @@ if os.environ.get('PROD'):
 
     #I must set a environmental variable PROD=True, if I am on production to avoid import these settings on development
 
-    AWS_STORAGE_BUCKET_NAME = '???'
+    AWS_STORAGE_BUCKET_NAME = 'iblog-bucket'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
