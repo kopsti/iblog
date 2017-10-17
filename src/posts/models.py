@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from datetime import date
 from django.db import models
 from django.db.models.signals import pre_save
 from django.utils import timezone
@@ -49,6 +50,10 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
+
+    @property
+    def future_post(self):
+        return date.today() < self.publish
 
 def pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:

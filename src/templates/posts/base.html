@@ -6,25 +6,32 @@
   <head>
     {% include 'html/head.html' %}
     <link rel="stylesheet" href="{% static 'posts/css/style.css' %}" type="text/css">
-    <title>{% block title%}Title here{% endblock %}</title>
+    <title>{% block title %}{{ site_title }}{% endblock %}</title>
   </head>
 
   <body>
 
-    <header>
-      <h1>{% block h1%}Header here{% endblock %}</h1>
-      <h3>{% block h3%}Description here{% endblock %}</h3>
-    </header>
+    <div class='container'>
 
-    {% include 'html/messages.html' %}
+      {% include 'html/nav.html' %}
 
-    {% block content %}
-    PostList content here
-    {% endblock %}
+      <header>
+        <h1>{% block h1%}Header here{% endblock %}</h1>
+        <h3>{% block h3%}Description here{% endblock %}</h3>
+        <hr>
+      </header>
 
-    <footer>
-      <p class="copyright">&copy; {{ site_title }}</p>
-    </footer>
+      {% include 'html/messages.html' %}
+
+      {% block content %}
+      Content here
+      {% endblock %}
+      
+      <footer>
+        <p class="copyright">&copy; {{ site_title }}</p>
+      </footer>
+
+    </div>
 
   </body>
 

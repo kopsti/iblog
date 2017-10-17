@@ -1,19 +1,61 @@
 {% extends 'posts/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title%}
-{{ site_title }}
+{{ post.title }} | {{ block.super }}
 {% endblock %}
 
 {% block h1%}
-{{ site_title }}
+{{ post.title }}
 {% endblock %}
 
 {% block h3%}
-{{ site_description }}
+{{ post.publish }}
+{% if post.draft %}
+<small class="alert alert-warning">Staff only: Draft</small>
+{% endif %}
+{% if post.future_post %}
+<small class="alert alert-warning">Staff only: Future Post</small>
+{% endif %}
 {% endblock %}
 
 {% block content %}
 
-{{ post.title }}
+<div>
+
+  {% if post.image %}
+  <img class="featured" src='{{ post.image.url }}' class='img-responsive' />
+  {% endif %}
+
+  <p>
+    Read time:
+    {% if post.read_time <= 1 %}
+    < 1 Minute
+    {% else %}
+    {{ post.read_time }} minutes
+    {% endif %}
+  </p>
+
+  <p><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></p>
+  <p><i class="fa fa-user" aria-hidden="true"></i> <a href="{% url 'posts:post_author' post.author %}">{{ post.author }} {% if post.user.get_full_name %} | {{ post.author.get_full_name }} {% endif %}</a></p>
+
+  {% if request.user == post.author %}
+  <p>
+    <a href="{%url 'posts:post_update' post.slug %}" class="btn btn-info" role="button">Update</a>
+    <a href="{%url 'posts:post_delete' post.slug %}" class="btn btn-danger" role="button">Delete</a>
+  </p>
+  {% endif %}
+
+  <div class='row'>
+    <div class='col-sm-12 '>
+
+       <div class='post-detail-item'>{{ post.content }}</div>
+
+    </div>
+  </div>
+
+</div>
+
+<hr>
 
 {% endblock %}

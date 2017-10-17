@@ -1,11 +1,11 @@
 {% extends 'posts/base.html' %}
 
 {% block title %}
-Latest posts | {{ block.super }}
+{{ category }} | {{ block.super }}
 {% endblock %}
 
-{% block h1%}Latest posts{% endblock %}
-{% block h3%}{% endblock %}
+{% block h1%}Latest posts in {{ category }}{% endblock %}
+{% block h3%}{{ category.description }}{% endblock %}
 
 {% block content %}
 

@@ -95,9 +95,15 @@ class PostAuthorList(ListView):
             ).distinct()
         return queryset
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostAuthorList, self).get_context_data(*args, **kwargs)
+        context['author'] = get_object_or_404(User, username=self.kwargs['user'])
+        return context
+
 class PostCategoryDetail(ListView):
     model = Post
-    context_object_name = 'tools'
+    context_object_name = 'posts'
+    template_name = 'posts/category_detail.html'
 
     def get_queryset(self):
         category = get_object_or_404(Category, slug=self.kwargs['category'])
@@ -113,3 +119,8 @@ class PostCategoryDetail(ListView):
                 Q(author__username__icontains=query)
             ).distinct()
         return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostCategoryDetail, self).get_context_data(*args, **kwargs)
+        context['category'] = get_object_or_404(Category, slug=self.kwargs['category'])
+        return context

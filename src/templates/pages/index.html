@@ -1,1 +1,25 @@
-It works! This is my homepage.
+{% extends 'posts/base.html' %}
+
+{% block title %}{{ site_title }} | {{ site_description }}{% endblock %}
+
+{% block h1%}
+{% if site_logo %}
+<img class="logo" src="{{ site_logo.url }}" alt="">
+{% endif %}
+{{ site_title }}
+{% endblock %}
+
+{% block h3%}{{ site_description }}{% endblock %}
+
+{% block content %}
+<strong>It works! This is my homepage.</strong>
+<p>Place here your content</p>
+{% endblock %}
+
+<!--
+
+flatpages is the best way to keep your static pages organized if needed
+
+https://docs.djangoproject.com/en/1.11/ref/contrib/flatpages/
+
+-->
