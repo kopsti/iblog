@@ -16,18 +16,18 @@ class PostCreate(CreateView):
 class PostList(ListView):
     model = Post
 
-    def get_queryset():
+    def get_queryset(self):
         queryset = Post.objects.active()
-    	if request.user.is_staff or request.user.is_superuser:
-    		queryset = Post.objects.all()
+        if (self.request.user.is_staff or self.request.user.is_superuser):
+            queryset = Post.objects.all()
         return queryset
 
 class PostDetail(DetailView):
     model = Post
     slug_url_kwarg = 'post'
 
-    def get_queryset():
-        queryset = Post.objects.active
-    	if request.user.is_staff or request.user.is_superuser:
-    		queryset = Post.objects.all()
+    def get_queryset(self):
+        queryset = Post.objects.active()
+        if (self.request.user.is_staff or self.request.user.is_superuser):
+            queryset = Post.objects.all()
         return queryset

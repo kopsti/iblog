@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save
+from django.utils import timezone
 from django.utils.safestring import mark_safe
 from iblog.utils import get_read_time, unique_slug_generator
 
