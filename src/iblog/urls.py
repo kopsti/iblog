@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/register/$',  RegistrationView.as_view(form_class=RegistrationFormUniqueEmail), name='auth_signup'),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
-    url(r'^', include("posts.urls", namespace='posts')),
+    url(r'^blog/', include("posts.urls", namespace='posts')),
 ]
 
 if settings.DEBUG:

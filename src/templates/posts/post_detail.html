@@ -1,0 +1,19 @@
+{% extends 'posts/base.html' %}
+
+{% block title%}
+{{ site_title }}
+{% endblock %}
+
+{% block h1%}
+{{ site_title }}
+{% endblock %}
+
+{% block h3%}
+{{ site_description }}
+{% endblock %}
+
+{% block content %}
+
+{{ post.title }}
+
+{% endblock %}

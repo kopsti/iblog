@@ -1,4 +1,5 @@
-from django.conf import settings
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_save
 from django.utils import timezone
@@ -22,7 +23,7 @@ class PostManager(models.Manager):
         return super(PostManager, self).filter(draft=False).filter(publish__lte=timezone.now())
 
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
+    author = models.ForeignKey(User, default=1)
     title = models.CharField(max_length=120)
     slug = models.SlugField(blank=True, editable=False, unique=True)
     category = models.ForeignKey(Category)
@@ -40,22 +41,17 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("posts:detail", kwargs={"slug": self.slug})
+        return reverse("posts:post_detail", kwargs={"post": self.slug})
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
-
-    def get_markdown(self):
-        content = self.content
-        markdown_text = markdown(content)
-        return mark_safe(markdown_text)
 
 def pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
 
-    if instance.content:
-        html_string = instance.get_markdown()
-        read_time = get_read_time(html_string)
-        instance.read_time = read_time_var
+    # if instance.content:
+    #     html_string = instance.get_markdown()
+    #     read_time = get_read_time(html_string)
+    #     instance.read_time = read_time_var
 pre_save.connect(pre_save_receiver, sender=Post)

@@ -29,6 +29,7 @@ if os.environ.get('PROD'):
         # external
         'storages',
         'crispy_forms',
+        'pagedown',
         # internal
         'id',
         'posts'
@@ -167,7 +168,7 @@ if os.environ.get('PROD'):
     SECURE_FRAME_DENY               = True
 
     #Registration settings
-    
+
     # General settings
 
     SITE_ID = 1
