@@ -1,9 +1,10 @@
-{% extends "registration/base.html" %}
+{% extends 'registration/base.html' %}
 
-{% block head %}Registration Closed{% endblock %}
+{% block title %}Registration Closed | {{ block.super }}{% endblock %}
 
-{% block title %}<h1>Registration Closed</h1>{% endblock %}
+{% block h1 %}Registration is unavailable{% endblock %}
+{% block h3 %}{% endblock %}
 
 {% block content %}
-  <p>Registration is currently closed.</p>
+<p>Registration is currently closed.</p>
 {% endblock %}

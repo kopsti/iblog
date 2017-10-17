@@ -1,9 +1,10 @@
-{% extends "registration/base.html" %}
+{% extends 'registration/base.html' %}
 
-{% block head %}Registered{% endblock %}
+{% block title %}Registered | {{ block.super }}{% endblock %}
 
-{% block title %}<h1>One last step!</h1>{% endblock %}
+{% block h1 %}Almoste done!{% endblock %}
+{% block h3 %}Activate your account{% endblock %}
 
 {% block content %}
-  <p>You are now registered. Activation email sent.</p>
+<p>You are now registered. Activation email sent.</p>
 {% endblock %}

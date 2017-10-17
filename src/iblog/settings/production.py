@@ -31,6 +31,7 @@ if os.environ.get('PROD'):
         'crispy_forms',
         'pagedown',
         # internal
+        'iblog',
         'id',
         'posts'
     ]
@@ -177,7 +178,7 @@ if os.environ.get('PROD'):
     CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
     from django.contrib.messages import constants as messages
-    
+
     MESSAGE_TAGS = {
         messages.ERROR: 'danger'
     }

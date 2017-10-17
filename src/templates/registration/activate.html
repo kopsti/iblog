@@ -1,9 +1,10 @@
-{% extends "registration/base.html" %}
+{% extends 'registration/base.html' %}
 
-{% block head %}Error{% endblock %}
+{% block title %}Error | {{ block.super }}{% endblock %}
 
-{% block title %}<h1>Error</h1>{% endblock %}
+{% block h1 %}Error{% endblock %}
+{% block h3 %}Sorry about that. Please try again!{% endblock %}
 
 {% block content %}
-  <p>Account activation failed.</p>
+<p>Account activation failed.</p>
 {% endblock %}

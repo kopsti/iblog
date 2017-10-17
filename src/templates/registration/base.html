@@ -1,28 +1,34 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 
   <head>
-    <title>{% block head %}Head{% endblock %} | {{ site_title }}</title>
-    {% load staticfiles %}
     {% include 'html/head.html' %}
+    <link rel="stylesheet" href="{% static 'posts/css/style.css' %}" type="text/css">
+    <title>{% block title %}{{ site_title }}{% endblock %}</title>
   </head>
 
   <body>
 
-    <div id="wrapper">
+    <div class='container'>
 
       {% include 'html/nav.html' %}
 
-      <header id="header" class="alt">
-        {% block title %}<h1>Title</h1>{% endblock %}
+      <header>
+        <h1>{% block h1%}Header here{% endblock %}</h1>
+        <h3>{% block h3%}Description here{% endblock %}</h3>
+        <hr>
       </header>
 
-      {% block content %}Content{% endblock %}
+      {% include 'html/messages.html' %}
 
-      <footer id="footer">
+      {% block content %}
+      Content here
+      {% endblock %}
 
+      <footer>
         <p class="copyright">&copy; {{ site_title }}</p>
-
       </footer>
 
     </div>
