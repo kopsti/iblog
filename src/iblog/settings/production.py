@@ -28,6 +28,7 @@ if os.environ.get('PROD'):
         'django.contrib.staticfiles',
         # external
         'storages',
+        'crispy_forms',
         # internal
         'posts'
     ]
