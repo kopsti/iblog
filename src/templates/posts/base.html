@@ -2,20 +2,27 @@
 
 <!DOCTYPE html>
 <html>
+
   <head>
     {% include 'html/head.html' %}
     <link rel="stylesheet" href="{% static 'posts/css/style.css' %}" type="text/css">
     <title>{% block title%}Title here{% endblock %}</title>
   </head>
+
   <body>
 
-    <div class='col-sm-6 col-sm-offset-3'>
-      <header>
-        <h1>{% block h1%}Header here{% endblock %}</h1>
-      </header>
-      {% block content %}
-      PostList content here
-      {% endblock %}
-    </div>
+    <header>
+      <h1>{% block h1%}Header here{% endblock %}</h1>
+      <h3>{% block h3%}Description here{% endblock %}</h3>
+    </header>
+    {% block content %}
+    PostList content here
+    {% endblock %}
+
+    <footer>
+      <p class="copyright">&copy; {{ site_title }}</p>
+    </footer>
+
   </body>
+
 </html>
