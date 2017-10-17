@@ -29,7 +29,6 @@ if os.environ.get('PROD'):
         # external
         'storages',
         'crispy_forms',
-        'pagedown',
         # internal
         'iblog',
         'id',

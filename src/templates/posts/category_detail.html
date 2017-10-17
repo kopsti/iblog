@@ -29,7 +29,7 @@
         </h3>
         <p><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></p>
         <p><i class="fa fa-user" aria-hidden="true"></i> <a href="{% url 'posts:post_author' post.author %}">{{ post.author }} {% if post.user.get_full_name %} | {{ post.author.get_full_name }} {% endif %}</a></p>
-        <!-- {{ post.get_markdown|truncatechars_html:120 }} -->
+        <p>{{ post.content | truncatechars_html:120 }}</p>
         <p><a href="{{ post.get_absolute_url }}" class="btn btn-primary" role="button">Read</a></p>
       </div>
     </div>
