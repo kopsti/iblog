@@ -1,0 +1,21 @@
+{% extends "registration/base.html" %}
+
+{% block head %}Log In{% endblock %}
+
+{% block title %}<h1>Log In</h1>{% endblock %}
+
+{% block content %}
+
+  <section>
+    <form method="post" action=".">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Log in" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+    <p>Forgot your password? <a href="{% url 'auth_password_reset' %}">Reset it</a></p>
+    <p>New to Canvit? <a href="{% url 'auth_signup' %}">Sign Up</a></p>
+  </section>
+
+{% endblock %}

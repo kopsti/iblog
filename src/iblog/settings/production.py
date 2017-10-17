@@ -30,6 +30,7 @@ if os.environ.get('PROD'):
         'storages',
         'crispy_forms',
         # internal
+        'id',
         'posts'
     ]
 
@@ -56,6 +57,7 @@ if os.environ.get('PROD'):
                     'django.template.context_processors.request',
                     'django.contrib.auth.context_processors.auth',
                     'django.contrib.messages.context_processors.messages',
+                    'iblog.context_processors.current_site',
                 ],
             },
         },
@@ -163,3 +165,9 @@ if os.environ.get('PROD'):
     SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
     SECURE_HSTS_SECONDS             = 1000000
     SECURE_FRAME_DENY               = True
+
+    #Registration settings
+    
+    # General settings
+
+    SITE_ID = 1
