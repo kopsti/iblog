@@ -26,7 +26,10 @@ if os.environ.get('PROD'):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-        'storages'
+        # external
+        'storages',
+        # internal
+        'posts'
     ]
 
     MIDDLEWARE = [
