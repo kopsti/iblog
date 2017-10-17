@@ -7,3 +7,8 @@
   max-width: 350px;
   height: auto;
 }
+
+.img-responsive {
+  max-height: 350px;
+  width: auto;
+}
