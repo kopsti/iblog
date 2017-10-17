@@ -42,7 +42,7 @@ if os.environ.get('PROD'):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
 
-    ROOT_URLCONF = 'sample.urls'
+    ROOT_URLCONF = 'iblog.urls'
 
     TEMPLATES = [
         {
@@ -60,7 +60,7 @@ if os.environ.get('PROD'):
         },
     ]
 
-    WSGI_APPLICATION = 'sample.wsgi.application'
+    WSGI_APPLICATION = 'iblog.wsgi.application'
 
 
     # Database
