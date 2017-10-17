@@ -1,13 +1,19 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from .models import Category, Post, User
 from .forms import PostForm
+
 # Create your views here.
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Post
     form_class = PostForm
+    login_url = '/accounts/login/'
+    success_message = 'Post created!'
 
     def form_valid(self, form):
         instance = form.save(commit=False)
@@ -34,18 +40,32 @@ class PostDetail(DetailView):
             queryset = Post.objects.all()
         return queryset
 
-class PostUpdate(UpdateView):
+class PostUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Post
     form_class = PostForm
+    login_url = '/accounts/login/'
     slug_url_kwarg = 'post'
+    success_message = 'Post updated!'
 
-class PostDelete(DeleteView):
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user)
+
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
+    login_url = '/accounts/login/'
     slug_url_kwarg = 'post'
+    success_message = 'Post deleted!'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(PostDelete, self).delete(request, *args, **kwargs)
 
     def get_success_url(self):
         author = self.object.author.username
         return reverse_lazy('posts:post_author', kwargs={'user': author})
+
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user)
 
 class PostAuthorList(ListView):
     model = Post

@@ -11,9 +11,13 @@ from iblog.utils import get_read_time, unique_slug_generator
 class Category(models.Model):
     title = models.CharField(max_length=120)
     description = models.CharField(max_length=500)
+    slug = models.SlugField(blank=True, editable=False, unique=True)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("posts:category_detail", kwargs={"category": self.slug})
 
     class Meta:
         verbose_name_plural = "categories"
@@ -26,7 +30,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, default=1)
     title = models.CharField(max_length=120)
     slug = models.SlugField(blank=True, editable=False, unique=True)
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(null=True, blank=True, upload_to='images/posts')
     content = models.TextField()
     draft = models.BooleanField(default=False)
@@ -55,3 +59,4 @@ def pre_save_receiver(sender, instance, *args, **kwargs):
     #     read_time = get_read_time(html_string)
     #     instance.read_time = read_time_var
 pre_save.connect(pre_save_receiver, sender=Post)
+pre_save.connect(pre_save_receiver, sender=Category)

@@ -15,6 +15,9 @@
       <h1>{% block h1%}Header here{% endblock %}</h1>
       <h3>{% block h3%}Description here{% endblock %}</h3>
     </header>
+
+    {% include 'html/messages.html' %}
+
     {% block content %}
     PostList content here
     {% endblock %}
