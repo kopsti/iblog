@@ -1,2 +1,2 @@
 # iblog
-A sample blog app, build in Django. Used as reference.
+A sample blog app, built in Django. Used as a reference project.
