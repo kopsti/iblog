@@ -3,7 +3,7 @@ botocore==1.7.24
 dj-database-url==0.4.2
 Django==1.11.6
 django-crispy-forms==1.6.1
-django-registration==2.2
+django-registration==3.1.2
 django-storages==1.6.5
 docutils==0.14
 gunicorn==19.7.1
